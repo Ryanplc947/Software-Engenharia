@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela 1 - Inserir e Ordenar Números</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .field-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Insira 8 Números</h1>
+        <div id="inputs-container">
+            <!-- Campos de entrada serão gerados aqui -->
+        </div>
+        <button onclick="ordenarNumeros()">Entra</button>
+    </div>
+
+    <script>
+        let numeros = [];
+
+        function criarCampos() {
+            const container = document.getElementById('inputs-container');
+            for (let i = 1; i <= 8; i++) {
+                const div = document.createElement('div');
+                div.className = 'field-group';
+                
+                const label = document.createElement('label');
+                label.textContent = `Número ${i}:`;
+                
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.id = `numero${i}`;
+                input.required = true;
+
+                div.appendChild(label);
+                div.appendChild(input);
+                container.appendChild(div);
+            }
+        }
+
+        function ordenarNumeros() {
+            numeros = [];
+            for (let i = 1; i <= 8; i++) {
+                const valor = document.getElementById(`numero${i}`).value;
+                if (valor === '') {
+                    alert('Por favor, insira todos os números.');
+                    return;
+                }
+                numeros.push(parseInt(valor));
+            }
+            numeros.sort((a, b) => a - b);
+            localStorage.setItem('numerosOrdenados', JSON.stringify(numeros));
+            alert(`Números ordenados: ${numeros.join(', ')}`);
+            window.location.href = 'tela2.html'; // Redireciona para a Tela 2
+        }
+
+        document.addEventListener('DOMContentLoaded', criarCampos);
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela 3 - Resultado da Busca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .field-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultado da Busca</h1>
+        <div id="resultado-container">
+            <!-- Resultado da busca será exibido aqui -->
+        </div>
+        <button onclick="voltarTela1()">Voltar para Tela 1</button>
+    </div>
+
+    <script>
+        function exibirResultado() {
+            const resultado = JSON.parse(localStorage.getItem('resultadoBusca'));
+
+            const container = document.getElementById('resultado-container');
+            if (resultado && resultado.encontrado) {
+                container.innerHTML = `<p>Número encontrado na posição: ${resultado.posicao}</p>`;
+            } else {
+                container.innerHTML = `<p>Número não encontrado.</p>`;
+            }
+        }
+
+        function voltarTela1() {
+            localStorage.removeItem('numerosOrdenados');
+            localStorage.removeItem('resultadoBusca');
+            window.location.href = 'tela1.html'; // Redireciona para a Tela 1
+        }
+
+        document.addEventListener('DOMContentLoaded', exibirResultado);
+    </script>
+</body>
+</html>
